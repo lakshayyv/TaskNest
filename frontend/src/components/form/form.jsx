@@ -6,6 +6,7 @@ import { createTodo } from "../../actions/todo";
 export default function TodoForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
   const [error, setError] = useRecoilState(errorAtom);
   const setTodos = useSetRecoilState(allTodosAtom);
 
@@ -14,10 +15,11 @@ export default function TodoForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await createTodo(title, description, setError, setTodos);
+    await createTodo(title, description, priority, setError, setTodos);
 
     setTitle("");
     setDescription("");
+    setPriority("");
   };
 
   return (
@@ -35,6 +37,7 @@ export default function TodoForm() {
           }}
           placeholder="Enter a title"
           className={inputCss}
+          required
         />
         <textarea
           value={description}
@@ -43,6 +46,17 @@ export default function TodoForm() {
           }}
           placeholder="Enter a description"
           className={inputCss + "h-[100px]"}
+          required
+        />
+        <input
+          type="number"
+          value={priority}
+          onChange={(e) => {
+            setPriority(e.target.value);
+          }}
+          placeholder="Enter priority"
+          className={inputCss}
+          required
         />
         <button type="submit" className="bg-yellow-500 px-7 py-2 rounded-lg">
           Submit

@@ -1,19 +1,33 @@
 import axios from "axios";
 
-export const createTodo = async (title, description, setError, setTodos) => {
+export const createTodo = async (
+  title,
+  description,
+  priority,
+  setError,
+  setTodos
+) => {
   setError(null);
 
-  if (title.trim() === "" || description.trim() === "") {
-    setError("Both title and description are required.");
+  if (title.trim() === "" || description.trim() === "" || priority === null) {
+    setError("All fields are required.");
     return;
   }
 
   try {
-    const todoPayload = { title: title, description: description };
+    const todoPayload = {
+      title: title,
+      description: description,
+      priority: priority,
+    };
     const response = await axios.post("api/v1/todo", todoPayload);
 
     if (response.data.success) {
-      setTodos((prev) => [...prev, response.data.message]);
+      setTodos((prev) =>
+        [...prev, response.data.message].sort((todoOne, todoTwo) => {
+          return todoOne.priority - todoTwo.priority;
+        })
+      );
     }
   } catch (error) {
     setError(error.response.data.message);
@@ -22,5 +36,9 @@ export const createTodo = async (title, description, setError, setTodos) => {
 
 export const fetchAllTodos = async () => {
   const response = await axios.get("/api/v1/todos");
-  return response.data.message;
+  const todos = response.data.message;
+  todos.sort((todoOne, todoTwo) => {
+    return todoOne.priority - todoTwo.priority;
+  });
+  return todos;
 };

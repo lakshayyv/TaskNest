@@ -13,7 +13,11 @@ const TodoSchema = mongoose.Schema({
   completed: {
     type: Boolean,
     required: true,
-    default: false
+    default: false,
+  },
+  priority: {
+    type: Number,
+    required: true,
   },
   createdAt: {
     type: Date,

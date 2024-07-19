@@ -4,7 +4,13 @@ import { FaTrashAlt } from "react-icons/fa";
 import { useRecoilState } from "recoil";
 import { allTodosAtom } from "../../store/atoms/todo";
 
-export default function TodoCard({ id, title, description, completed }) {
+export default function TodoCard({
+  id,
+  title,
+  description,
+  completed,
+  priority,
+}) {
   const [isChecked, setIsChecked] = useState(completed);
   const [todos, setTodos] = useRecoilState(allTodosAtom);
 
@@ -60,6 +66,7 @@ export default function TodoCard({ id, title, description, completed }) {
         <h1 className="text-sm font-semibold">{title}</h1>
         <p className="text-xs text-slate-400">{description}</p>
       </div>
+      <h2>{priority}</h2>
       <FaTrashAlt className="text-red-700" onClick={handleDelete} />
     </div>
   );

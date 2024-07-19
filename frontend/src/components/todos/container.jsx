@@ -19,6 +19,7 @@ export default function TodoContainer() {
               title={todo.title}
               description={todo.description}
               completed={todo.completed}
+              priority={todo.priority}
             />
           ))
         ) : (
