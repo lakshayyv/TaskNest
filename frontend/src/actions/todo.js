@@ -22,9 +22,10 @@ export const createTodo = async (
     };
     const response = await axios.post("api/v1/todo", todoPayload);
 
+    console.log(response.data.message);
     if (response.data.success) {
-      setTodos((prev) =>
-        [...prev, response.data.message].sort((todoOne, todoTwo) => {
+      setTodos(
+        response.data.message.sort((todoOne, todoTwo) => {
           return todoOne.priority - todoTwo.priority;
         })
       );
@@ -40,5 +41,6 @@ export const fetchAllTodos = async () => {
   todos.sort((todoOne, todoTwo) => {
     return todoOne.priority - todoTwo.priority;
   });
+  console.log(todos);
   return todos;
 };

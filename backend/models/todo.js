@@ -1,28 +1,33 @@
 const mongoose = require("mongoose");
 
 const TodoSchema = mongoose.Schema({
-  title: {
+  email: {
     type: String,
     required: true,
     unique: true,
   },
-  description: {
-    type: String,
-    required: true,
-  },
-  completed: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  priority: {
-    type: Number,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
+  todos: [
+    {
+      title: {
+        type: String,
+        unique: true,
+      },
+      description: {
+        type: String,
+      },
+      completed: {
+        type: Boolean,
+        default: false,
+      },
+      priority: {
+        type: Number,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now(),
+      },
+    },
+  ],
 });
 
 const Todo = new mongoose.model("todos", TodoSchema);

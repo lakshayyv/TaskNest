@@ -1,13 +1,42 @@
 import { RecoilRoot } from "recoil";
-import TodoContainer from "./components/todos/container";
-import TodoForm from "./components/form/form";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignUp from "./pages/signup";
+import { ToastContainer, Bounce } from "react-toastify";
+import Todo from "./pages/todo";
+import PrivateRoute from "./components/route/privateRoute";
+import RedirectRoute from "./components/route/redirectRoute";
+import SignIn from "./pages/signin";
 
 export default function App() {
   return (
     <RecoilRoot>
-      <div className="grid grid-cols-2 w-full h-full dark:bg-dark dark:text-white pt-[5rem]">
-        <TodoForm />
-        <TodoContainer />
+      <div className="pt-[5rem] w-full h-full dark:bg-dark dark:text-white">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<PrivateRoute element={<Todo />} />} />
+            <Route
+              path="/signup"
+              element={<RedirectRoute element={<SignUp />} />}
+            />
+            <Route
+              path="/signin"
+              element={<RedirectRoute element={<SignIn />} />}
+            />
+          </Routes>
+        </BrowserRouter>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition:Bounce
+        />
       </div>
     </RecoilRoot>
   );

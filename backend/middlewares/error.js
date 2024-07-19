@@ -5,8 +5,16 @@ const errorMiddleware = (err, req, res, next) => {
   err.message = err.message || "Something went wrong";
 
   if (err.code === 11000) {
-    const message = "Record already exist";
-    err = new ErrorHandler(message, 400);
+    if (err.keyPattern && err.keyPattern.email) {
+      const message = "User with email already exist";
+      err = new ErrorHandler(message, 400);
+    } else if (err.keyPattern && err.keyPattern.title) {
+      const message = "Todo already exists";
+      err = new ErrorHandler(message, 400);
+    } else {
+      const message = "Record already exists";
+      err = new ErrorHandler(message, 400);
+    }
   }
 
   if (err.name === "CastError") {
