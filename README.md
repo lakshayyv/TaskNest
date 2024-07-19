@@ -2,6 +2,9 @@
 
 TaskNest is a simple Todo web application built using the MERN stack. It allows users to create, delete, and view a list of todos. The application utilizes ReactJS for the frontend, NodeJS and Express for the backend, and MongoDB for the database. Recoil is used for state management in the frontend.
 
+![image](https://github.com/user-attachments/assets/c734f63e-7200-49d5-bbb9-cbd485979e40)
+
+
 ## Technologies Used
 
 - **ReactJS**: A JavaScript library for building user interfaces.
@@ -34,7 +37,7 @@ Make sure you have the following installed on your machine:
 1. Clone the repository:
    
    ```sh
-   git clone https://github.com/your-username/tasknest.git
+   git clone https://github.com/lakshayyv/tasknest.git
    cd tasknest
    
 3. Navigate to the backend directory:
@@ -51,7 +54,7 @@ Make sure you have the following installed on your machine:
    
     ```sh
     MONGO_URI=your_mongo_db_connection_string
-    PORT=5000
+    PORT=4000
 
 9. Start the backend server:
     
@@ -75,11 +78,11 @@ Make sure you have the following installed on your machine:
     ```sh
     npm run dev
 
-The application should now be running, with the frontend accessible at http://localhost:3000 and the backend at http://localhost:5000.
+The application should now be running, with the frontend accessible at http://localhost:5173 and the backend at http://localhost:4000.
 
 ## Usage
 
-1. Open your web browser and navigate to http://localhost:3000.
+1. Open your web browser and navigate to http://localhost:5173.
 2. Add a new todo item by typing in the input field and clicking the "Add" button.
 3. View the list of all todos.
 4. Delete a todo item by clicking the "Delete" button next to the respective todo.
