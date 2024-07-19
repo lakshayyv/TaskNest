@@ -41,6 +41,5 @@ export const fetchAllTodos = async () => {
   todos.sort((todoOne, todoTwo) => {
     return todoOne.priority - todoTwo.priority;
   });
-  console.log(todos);
   return todos;
 };

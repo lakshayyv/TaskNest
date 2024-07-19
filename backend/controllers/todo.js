@@ -5,18 +5,12 @@ const {
 } = require("../middlewares/error");
 const { Todo } = require("../models/todo");
 const { ErrorHandler } = require("../utils/errorHandler");
-const { getAuthPayload } = require("../utils/token");
+const { getAuthPayload, fetchAuthFromCookie } = require("../utils/token");
 
 const todoController = {
   createTodo: CatchAsyncError(async (req, res, next) => {
-    const token = req.cookies.token;
-    const tokenPayload = getAuthPayload(token);
-
+    const tokenPayload = fetchAuthFromCookie(req);
     const todoPayload = req.body;
-
-    if (todoPayload.title === "" || todoPayload.description === "") {
-      return emptyInputError(next);
-    }
 
     const userTodos = await Todo.findOne({ email: tokenPayload.email });
 
@@ -24,7 +18,6 @@ const todoController = {
       return next(new ErrorHandler("User not found", 404));
     }
 
-    // Check for duplicate title
     const existingTodo = userTodos.todos.find(
       (todo) => todo.title === todoPayload.title
     );
@@ -44,6 +37,7 @@ const todoController = {
 
   fetchTodo: CatchAsyncError(async (req, res, next) => {
     const todoId = req.query.id;
+
     if (!todoId) {
       return next(new ErrorHandler("Todo ID is required", 400));
     }
@@ -134,13 +128,12 @@ const todoController = {
   }),
 
   fetchAllTodos: CatchAsyncError(async (req, res, next) => {
-    const token = req.cookies.token;
-    const tokenPayload = getAuthPayload(token);
+    const tokenPayload = fetchAuthFromCookie(req);
     const email = tokenPayload.email;
 
     if (!email) {
       deleteCookie(res, "token");
-      return next(new ErrorHandler("User not authenticated", 401))
+      return next(new ErrorHandler("User not authenticated", 401));
     }
 
     const userTodos = await Todo.findOne({ email: email });

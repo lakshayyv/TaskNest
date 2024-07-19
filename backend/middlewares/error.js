@@ -28,10 +28,6 @@ const errorMiddleware = (err, req, res, next) => {
   });
 };
 
-const emptyInputError = (next, message = "Invalid inputs") => {
-  return next(new ErrorHandler(message, 400));
-}
-
 const recordNotFoundError = (next, message = "Record not found") => {
   return next(new ErrorHandler(message, 400));
 };
@@ -39,5 +35,4 @@ const recordNotFoundError = (next, message = "Record not found") => {
 module.exports = {
   errorMiddleware,
   recordNotFoundError,
-  emptyInputError
 };

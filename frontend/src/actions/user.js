@@ -41,3 +41,30 @@ export const signUser = async (email, password) => {
     });
   }
 };
+
+export const updateUser = async (name) => {
+  try {
+    const userPayload = { name: name };
+    const response = await axios.put("/api/v1/user/me", userPayload);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchUser = async () => {
+  try {
+    const response = await axios.get("/api/v1/user/me");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    await axios.get("api/v1/user/logout");
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -64,17 +64,17 @@ const userController = {
   }),
 
   updateProfile: CatchAsyncError(async (req, res, next) => {
-    const updatePayload = req.query;
+    const updatePayload = req.body;
     const userPayload = req.user;
 
-    const fieldName = Object.keys(updatePayload)[0];
-    userPayload[fieldName] = updatePayload[fieldName];
-
-    await userPayload.save();
+    const user = await User.updateOne(
+      { _id: userPayload._id },
+      { $set: updatePayload }
+    );
 
     res.status(200).json({
       success: true,
-      message: "User updated successfully",
+      message: user,
     });
   }),
 

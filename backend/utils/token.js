@@ -5,6 +5,13 @@ function getAuthPayload(token) {
   return tokenPayload;
 }
 
+function fetchAuthFromCookie(req) {
+  const token = req.cookies.token;
+  const tokenPayload = getAuthPayload(token);
+  return tokenPayload;
+}
+
 module.exports = {
   getAuthPayload,
+  fetchAuthFromCookie,
 };

@@ -1,17 +1,19 @@
 import { RecoilRoot } from "recoil";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignUp from "./pages/signup";
 import { ToastContainer, Bounce } from "react-toastify";
 import Todo from "./pages/todo";
+import SignUp from "./pages/signup";
 import PrivateRoute from "./components/route/privateRoute";
 import RedirectRoute from "./components/route/redirectRoute";
 import SignIn from "./pages/signin";
+import Navbar from "./components/navbar/navbar";
 
 export default function App() {
   return (
     <RecoilRoot>
-      <div className="pt-[5rem] w-full h-full dark:bg-dark dark:text-white">
+      <div className="w-full h-full dark:bg-dark dark:text-white">
         <BrowserRouter>
+        <Navbar />
           <Routes>
             <Route path="/" element={<PrivateRoute element={<Todo />} />} />
             <Route
