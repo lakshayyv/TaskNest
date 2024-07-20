@@ -2,7 +2,7 @@ import { useRecoilValueLoadable } from "recoil";
 import { nameAtom } from "../../store/atoms/user";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { Suspense, useState } from "react";
-import { logoutUser } from "../../actions/user";
+import { deleteUser, logoutUser } from "../../actions/user";
 import Modal from "../modal/modal";
 
 export default function User() {
@@ -45,6 +45,12 @@ export default function User() {
                 onClick={logoutUser}
               >
                 Logout
+              </li>
+              <li
+                className="py-3 px-14 text-sm text-red-500 hover:bg-red-800 hover:text-white hover:cursor-pointer"
+                onClick={deleteUser}
+              >
+                Delete
               </li>
             </ul>
           </div>

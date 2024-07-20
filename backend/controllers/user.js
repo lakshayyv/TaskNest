@@ -3,6 +3,7 @@ const { Todo } = require("../models/todo");
 const { User } = require("../models/user");
 const { setCookie, deleteCookie } = require("../utils/cookie");
 const { ErrorHandler } = require("../utils/errorHandler");
+const { fetchAuthFromCookie } = require("../utils/token");
 
 const userController = {
   signUp: CatchAsyncError(async (req, res, next) => {
@@ -79,8 +80,10 @@ const userController = {
   }),
 
   deleteProfile: CatchAsyncError(async (req, res, next) => {
-    const userPayload = req.user;
-    await User.deleteOne(userPayload);
+    const token = fetchAuthFromCookie(req);
+    await User.deleteOne({ _id: token.id });
+    await Todo.deleteOne({ email: token.email });
+    deleteCookie(res, "token");
     res.status(200).json({
       success: true,
       message: "User deleted successfully",

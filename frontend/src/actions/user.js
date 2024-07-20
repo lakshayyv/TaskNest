@@ -68,3 +68,12 @@ export const logoutUser = async () => {
     console.log(error);
   }
 };
+
+export const deleteUser = async () => {
+  try {
+    await axios.delete("/api/v1/user/me");
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};
